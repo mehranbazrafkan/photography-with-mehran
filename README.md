@@ -1,14 +1,18 @@
-\## License
+# Photography with Mehran
 
+A single-page photography portfolio website for **Mehran Bazrafkan** - a student photographer offering affordable portrait, LinkedIn, and graduation photo sessions.
 
+The site showcases selected work, transparent pricing, an about section, and contact details in an elegant, fully responsive layout.
 
-This project is protected by copyright and is provided for viewing purposes only.
+## License
 
+This project is protected by copyright and is provided for viewing and portfolio demonstration purposes only.
 
+**All rights reserved.** No part of this repository may be copied, modified, distributed, or used without prior written permission from the author. See the [LICENSE](LICENSE) file for full details.
 
-All rights reserved. No part of this repository may be copied, modified, distributed, or used without prior written permission from the author.
+## Author
 
+**Mehran Bazrafkan**
+Student Photographer · Computer Engineering Student
 
-
-See the LICENSE file for details.
-
+© 2026 Mehran Bazrafkan. All rights reserved.
