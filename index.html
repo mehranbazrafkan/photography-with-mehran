@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mehran Bazrafkan — Photography Portfolio</title>
+  <meta name="description" content="Affordable photography sessions for students and professionals — portraits, LinkedIn & graduation photos by Mehran Bazrafkan." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: elegant typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            ink: '#0f0f12',
+            cream: '#f7f5f2',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-serif { font-family: 'Playfair Display', serif; }
+
+    /* Glassmorphism helper */
+    .glass {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .glass-light {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    /* Fade-in on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Lightbox */
+    #lightbox { transition: opacity 0.3s ease; }
+    #lightbox img { transition: transform 0.3s ease; }
+
+    ::selection { background: #c9a96a; color: #fff; }
+  </style>
+</head>
+
+<body class="bg-cream text-ink antialiased">
+
+  <!-- ====================== NAVBAR ====================== -->
+  <header class="fixed top-0 inset-x-0 z-40">
+    <nav class="glass-light mx-auto mt-4 flex max-w-6xl items-center justify-between rounded-full px-6 py-3 shadow-lg shadow-black/5">
+      <a href="#hero" class="font-serif text-lg font-semibold tracking-tight">Mehran<span class="text-amber-600">.</span></a>
+      <ul class="hidden gap-8 text-sm font-medium text-ink/70 md:flex">
+        <li><a href="#portfolio" class="transition hover:text-amber-600">Portfolio</a></li>
+        <li><a href="#pricing" class="transition hover:text-amber-600">Pricing</a></li>
+        <li><a href="#about" class="transition hover:text-amber-600">About</a></li>
+        <li><a href="#contact" class="transition hover:text-amber-600">Contact</a></li>
+      </ul>
+      <a href="#contact" class="rounded-full bg-ink px-5 py-2 text-sm font-medium text-cream transition hover:bg-amber-600 hover:shadow-lg">
+        Book a Session
+      </a>
+    </nav>
+  </header>
+
+  <!-- ====================== HERO ====================== -->
+  <section id="hero" class="relative flex min-h-screen items-center justify-center overflow-hidden">
+    <!-- Background image -->
+    <div class="absolute inset-0">
+      <img
+        src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=2000&q=80"
+        alt="Photographer at golden hour"
+        class="h-full w-full object-cover"
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
+    </div>
+
+    <!-- Hero content -->
+    <div class="relative z-10 mx-auto max-w-3xl px-6 text-center text-white">
+      <p class="reveal mb-4 text-sm font-medium uppercase tracking-[0.3em] text-amber-300">Mehran Bazrafkan</p>
+      <h1 class="reveal font-serif text-4xl font-semibold leading-tight sm:text-6xl md:text-7xl">
+        Capture Your<br />Best Moments
+      </h1>
+      <p class="reveal mx-auto mt-3 text-base font-light text-white/80 sm:text-lg">
+        Student Photographer · Portraits, LinkedIn &amp; Graduation Photos
+      </p>
+      <p class="reveal mx-auto mt-6 max-w-xl text-sm leading-relaxed text-white/75 sm:text-base">
+        Affordable photography sessions for students, professionals, and anyone who wants
+        high-quality portraits.
+      </p>
+      <div class="reveal mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a href="#contact"
+           class="rounded-full bg-amber-500 px-8 py-3.5 text-sm font-semibold text-ink shadow-xl shadow-amber-500/20 transition hover:-translate-y-0.5 hover:bg-amber-400">
+          Contact Me
+        </a>
+        <a href="#portfolio"
+           class="glass rounded-full px-8 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/20">
+          View Portfolio
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <a href="#portfolio" class="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-white/70 transition hover:text-white">
+      <svg class="h-6 w-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </a>
+  </section>
+
+  <!-- ====================== PORTFOLIO ====================== -->
+  <section id="portfolio" class="mx-auto max-w-6xl px-6 py-24">
+    <div class="reveal mb-14 text-center">
+      <p class="mb-2 text-sm font-medium uppercase tracking-[0.25em] text-amber-600">Portfolio</p>
+      <h2 class="font-serif text-3xl font-semibold sm:text-4xl">Selected Work</h2>
+      <p class="mx-auto mt-3 max-w-md text-sm text-ink/60">
+        A collection of portraits and moments captured around campus and beyond. Click any image to enlarge.
+      </p>
+    </div>
+
+    <div id="gallery" class="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+      <!-- images injected by JS -->
+    </div>
+  </section>
+
+  <!-- ====================== PRICING ====================== -->
+  <section id="pricing" class="bg-ink py-24 text-cream">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="reveal mb-14 text-center">
+        <p class="mb-2 text-sm font-medium uppercase tracking-[0.25em] text-amber-400">Pricing</p>
+        <h2 class="font-serif text-3xl font-semibold sm:text-4xl">Simple, Affordable Packages</h2>
+        <p class="mx-auto mt-3 max-w-md text-sm text-cream/60">
+          Transparent pricing designed for student budgets. No hidden fees.
+        </p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-3">
+        <!-- Starter -->
+        <div class="reveal glass rounded-3xl p-8 shadow-xl shadow-black/30 transition hover:-translate-y-2">
+          <h3 class="font-serif text-2xl font-semibold">Starter</h3>
+          <p class="mt-4 font-serif text-5xl font-bold">€20</p>
+          <ul class="mt-8 space-y-4 text-sm text-cream/80">
+            <li class="flex items-center gap-3"><span class="text-amber-400">✓</span> 20-minute session</li>
+            <li class="flex items-center gap-3"><span class="text-amber-400">✓</span> 10 edited photos</li>
+          </ul>
+          <a href="#contact" class="mt-8 block rounded-full border border-cream/30 py-3 text-center text-sm font-medium transition hover:bg-cream hover:text-ink">
+            Choose Starter
+          </a>
+        </div>
+
+        <!-- Standard (featured) -->
+        <div class="reveal relative rounded-3xl bg-amber-500 p-8 text-ink shadow-2xl shadow-amber-500/30 transition hover:-translate-y-2 md:-mt-4 md:mb-4">
+          <span class="absolute right-6 top-6 rounded-full bg-ink px-3 py-1 text-xs font-semibold text-cream">Popular</span>
+          <h3 class="font-serif text-2xl font-semibold">Standard</h3>
+          <p class="mt-4 font-serif text-5xl font-bold">€35</p>
+          <ul class="mt-8 space-y-4 text-sm text-ink/80">
+            <li class="flex items-center gap-3"><span class="font-bold">✓</span> 45-minute session</li>
+            <li class="flex items-center gap-3"><span class="font-bold">✓</span> 20 edited photos</li>
+          </ul>
+          <a href="#contact" class="mt-8 block rounded-full bg-ink py-3 text-center text-sm font-medium text-cream transition hover:bg-ink/80">
+            Choose Standard
+          </a>
+        </div>
+
+        <!-- Premium -->
+        <div class="reveal glass rounded-3xl p-8 shadow-xl shadow-black/30 transition hover:-translate-y-2">
+          <h3 class="font-serif text-2xl font-semibold">Premium</h3>
+          <p class="mt-4 font-serif text-5xl font-bold">€50</p>
+          <ul class="mt-8 space-y-4 text-sm text-cream/80">
+            <li class="flex items-center gap-3"><span class="text-amber-400">✓</span> 60-minute session</li>
+            <li class="flex items-center gap-3"><span class="text-amber-400">✓</span> 35 edited photos</li>
+          </ul>
+          <a href="#contact" class="mt-8 block rounded-full border border-cream/30 py-3 text-center text-sm font-medium transition hover:bg-cream hover:text-ink">
+            Choose Premium
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== ABOUT ====================== -->
+  <section id="about" class="mx-auto max-w-6xl px-6 py-24">
+    <div class="grid items-center gap-12 md:grid-cols-2">
+      <div class="reveal overflow-hidden rounded-3xl shadow-xl">
+        <img
+          src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?auto=format&fit=crop&w=1000&q=80"
+          alt="Camera and lens on a desk"
+          class="h-full w-full object-cover transition duration-700 hover:scale-105"
+          loading="lazy"
+        />
+      </div>
+      <div class="reveal">
+        <p class="mb-2 text-sm font-medium uppercase tracking-[0.25em] text-amber-600">About Me</p>
+        <h2 class="font-serif text-3xl font-semibold sm:text-4xl">Behind the Lens</h2>
+        <p class="mt-6 text-base leading-relaxed text-ink/70">
+          I'm a Computer Engineering student with a passion for photography. I'm currently
+          building my portfolio and offering affordable photography sessions around campus
+          and nearby locations.
+        </p>
+        <div class="mt-8 flex gap-8">
+          <div>
+            <p class="font-serif text-3xl font-bold text-amber-600">3+</p>
+            <p class="text-sm text-ink/60">Package options</p>
+          </div>
+          <div>
+            <p class="font-serif text-3xl font-bold text-amber-600">100%</p>
+            <p class="text-sm text-ink/60">Student-friendly</p>
+          </div>
+          <div>
+            <p class="font-serif text-3xl font-bold text-amber-600">📍</p>
+            <p class="text-sm text-ink/60">On &amp; near campus</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== CONTACT ====================== -->
+  <section id="contact" class="relative overflow-hidden bg-ink py-24 text-cream">
+    <div class="absolute inset-0 opacity-20">
+      <img src="https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?auto=format&fit=crop&w=2000&q=80" alt="" class="h-full w-full object-cover" loading="lazy" />
+    </div>
+    <div class="relative mx-auto max-w-3xl px-6 text-center">
+      <div class="reveal">
+        <p class="mb-2 text-sm font-medium uppercase tracking-[0.25em] text-amber-400">Get in Touch</p>
+        <h2 class="font-serif text-3xl font-semibold sm:text-4xl">Let's Create Something Beautiful</h2>
+        <p class="mx-auto mt-3 max-w-md text-sm text-cream/70">
+          Ready to book or have a question? Reach out through any of these channels.
+        </p>
+      </div>
+
+      <div class="reveal mt-12 grid gap-5 sm:grid-cols-3">
+        <!-- Email -->
+        <a href="mailto:your-email@example.com" class="glass group flex flex-col items-center gap-3 rounded-3xl p-7 transition hover:-translate-y-1.5 hover:bg-white/15">
+          <span class="flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/20 text-amber-300 transition group-hover:bg-amber-500 group-hover:text-ink">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </span>
+          <span class="text-sm font-semibold">Email</span>
+          <span class="text-xs text-cream/60">your-email@example.com</span>
+        </a>
+
+        <!-- WhatsApp -->
+        <a href="https://wa.me/0000000000" target="_blank" rel="noopener" class="glass group flex flex-col items-center gap-3 rounded-3xl p-7 transition hover:-translate-y-1.5 hover:bg-white/15">
+          <span class="flex h-12 w-12 items-center justify-center rounded-full bg-green-500/20 text-green-300 transition group-hover:bg-green-500 group-hover:text-ink">
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12 2a10 10 0 00-8.6 15.05L2 22l5.05-1.32A10 10 0 1012 2z"/></svg>
+          </span>
+          <span class="text-sm font-semibold">WhatsApp</span>
+          <span class="text-xs text-cream/60">+00 000 000 000</span>
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://instagram.com/your-handle" target="_blank" rel="noopener" class="glass group flex flex-col items-center gap-3 rounded-3xl p-7 transition hover:-translate-y-1.5 hover:bg-white/15">
+          <span class="flex h-12 w-12 items-center justify-center rounded-full bg-pink-500/20 text-pink-300 transition group-hover:bg-pink-500 group-hover:text-ink">
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 01-1.38-.9 3.7 3.7 0 01-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.52.01-4.76.07-1.15.05-1.77.24-2.18.4-.55.22-.94.47-1.35.88-.41.41-.66.8-.88 1.35-.16.41-.35 1.03-.4 2.18-.06 1.24-.07 1.61-.07 4.76s.01 3.52.07 4.76c.05 1.15.24 1.77.4 2.18.22.55.47.94.88 1.35.41.41.8.66 1.35.88.41.16 1.03.35 2.18.4 1.24.06 1.61.07 4.76.07s3.52-.01 4.76-.07c1.15-.05 1.77-.24 2.18-.4.55-.22.94-.47 1.35-.88.41-.41.66-.8.88-1.35.16-.41.35-1.03.4-2.18.06-1.24.07-1.61.07-4.76s-.01-3.52-.07-4.76c-.05-1.15-.24-1.77-.4-2.18a3.6 3.6 0 00-.88-1.35 3.6 3.6 0 00-1.35-.88c-.41-.16-1.03-.35-2.18-.4-1.24-.06-1.61-.07-4.76-.07zM12 6.85a5.15 5.15 0 100 10.3 5.15 5.15 0 000-10.3zm0 8.5a3.35 3.35 0 110-6.7 3.35 3.35 0 010 6.7zm5.34-8.7a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z"/></svg>
+          </span>
+          <span class="text-sm font-semibold">Instagram</span>
+          <span class="text-xs text-cream/60">@your-handle</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== FOOTER ====================== -->
+  <footer class="bg-ink py-8 text-center text-sm text-cream/50">
+    <p class="font-serif text-base text-cream/80">Mehran Bazrafkan</p>
+    <p class="mt-1">Student Photographer · © <span id="year"></span> · All rights reserved</p>
+  </footer>
+
+  <!-- ====================== LIGHTBOX ====================== -->
+  <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 p-4 opacity-0">
+    <button id="lb-close" class="absolute right-5 top-5 text-3xl text-white/80 transition hover:text-white" aria-label="Close">&times;</button>
+    <button id="lb-prev" class="absolute left-4 top-1/2 -translate-y-1/2 text-4xl text-white/70 transition hover:text-white sm:left-8" aria-label="Previous">&#8249;</button>
+    <img id="lb-img" src="" alt="Enlarged photo" class="max-h-[85vh] max-w-[90vw] rounded-lg shadow-2xl" />
+    <button id="lb-next" class="absolute right-4 top-1/2 -translate-y-1/2 text-4xl text-white/70 transition hover:text-white sm:right-8" aria-label="Next">&#8250;</button>
+  </div>
+
+  <!-- ====================== SCRIPT ====================== -->
+  <script>
+    // --- Gallery data (Unsplash placeholders) ---
+    const photos = [
+      '1502685104226-ee32379fefbe', // portrait
+      '1488161628813-04466f872be2', // man portrait
+      '1524504388940-b1c1722653e1', // woman portrait
+      '1506794778202-cad84cf45f1d', // man b/w
+      '1517841905240-472988babdf9', // woman smiling
+      '1531123897727-8f129e1688ce', // outdoor portrait
+      '1463453091185-61582044d556', // man suit
+      '1438761681033-6461ffad8d80', // woman headshot
+    ];
+
+    const gallery = document.getElementById('gallery');
+    photos.forEach((id, i) => {
+      const thumb = `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=600&q=70`;
+      const full  = `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1400&q=85`;
+      const wrap = document.createElement('button');
+      wrap.className = 'group relative aspect-square overflow-hidden rounded-2xl shadow-md focus:outline-none focus:ring-2 focus:ring-amber-500';
+      wrap.innerHTML = `
+        <img src="${thumb}" data-full="${full}" alt="Portfolio photo ${i + 1}" loading="lazy"
+             class="h-full w-full object-cover transition duration-500 group-hover:scale-110" />
+        <span class="absolute inset-0 flex items-center justify-center bg-black/0 text-white opacity-0 transition group-hover:bg-black/30 group-hover:opacity-100">
+          <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14zM11 8v6M8 11h6"/></svg>
+        </span>`;
+      wrap.addEventListener('click', () => openLightbox(i));
+      gallery.appendChild(wrap);
+    });
+
+    // --- Lightbox ---
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    let current = 0;
+
+    function fullSrc(i) {
+      return `https://images.unsplash.com/photo-${photos[i]}?auto=format&fit=crop&w=1400&q=85`;
+    }
+    function openLightbox(i) {
+      current = i;
+      lbImg.src = fullSrc(current);
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
+      requestAnimationFrame(() => lightbox.classList.remove('opacity-0'));
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.classList.add('opacity-0');
+      setTimeout(() => {
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+      }, 300);
+      document.body.style.overflow = '';
+    }
+    function step(dir) {
+      current = (current + dir + photos.length) % photos.length;
+      lbImg.src = fullSrc(current);
+    }
+
+    document.getElementById('lb-close').addEventListener('click', closeLightbox);
+    document.getElementById('lb-prev').addEventListener('click', (e) => { e.stopPropagation(); step(-1); });
+    document.getElementById('lb-next').addEventListener('click', (e) => { e.stopPropagation(); step(1); });
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') step(-1);
+      if (e.key === 'ArrowRight') step(1);
+    });
+
+    // --- Scroll reveal ---
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    // --- Footer year ---
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
