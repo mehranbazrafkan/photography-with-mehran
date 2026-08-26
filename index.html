@@ -302,20 +302,32 @@
   <script>
     // --- Gallery data (Unsplash placeholders) ---
     const photos = [
-      '1502685104226-ee32379fefbe', // portrait
-      '1488161628813-04466f872be2', // man portrait
-      '1524504388940-b1c1722653e1', // woman portrait
-      '1506794778202-cad84cf45f1d', // man b/w
-      '1517841905240-472988babdf9', // woman smiling
-      '1531123897727-8f129e1688ce', // outdoor portrait
-      '1463453091185-61582044d556', // man suit
-      '1438761681033-6461ffad8d80', // woman headshot
+      //'1502685104226-ee32379fefbe', // portrait
+      //'1488161628813-04466f872be2', // man portrait
+      //'1524504388940-b1c1722653e1', // woman portrait
+      //'1506794778202-cad84cf45f1d', // man b/w
+      //'1517841905240-472988babdf9', // woman smiling
+      //'1531123897727-8f129e1688ce', // outdoor portrait
+      //'1463453091185-61582044d556', // man suit
+      //'1438761681033-6461ffad8d80', // woman headshot
+
+      '1ce36849-b5a4-4559-982d-f962c8e8ea0f',
+      '4b364ef5-0226-4e74-83c3-d803a346be65',
+      '7c8b5b66-7740-4499-81de-90f3b3f10183',
+      '9f76f1f5-b5db-4775-b889-4bc31d49d7eb',
+      '31fa3337-40f8-4b57-8ac3-10af4c169d96',
+      '80e1551d-083c-4a63-9961-b4668f4154ff',
+      '2705c442-e4fe-4da6-99b7-745aee3991ad',
+      'ddd8c5f5-f71f-470f-82f2-0faf0a739c3c',
     ];
 
     const gallery = document.getElementById('gallery');
     photos.forEach((id, i) => {
-      const thumb = `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=600&q=70`;
-      const full  = `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1400&q=85`;
+      //const thumb = `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=600&q=70`;
+      //const full  = `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1400&q=85`;
+
+      const thumb = `./assets/images/thumbnails/portrait/${id}.jpg`;
+      const full  = `./assets/images/portfolio/portrait/${id}.jpg`;
       const wrap = document.createElement('button');
       wrap.className = 'group relative aspect-square overflow-hidden rounded-2xl shadow-md focus:outline-none focus:ring-2 focus:ring-amber-500';
       wrap.innerHTML = `
@@ -334,7 +346,9 @@
     let current = 0;
 
     function fullSrc(i) {
-      return `https://images.unsplash.com/photo-${photos[i]}?auto=format&fit=crop&w=1400&q=85`;
+      //return `https://images.unsplash.com/photo-${photos[i]}?auto=format&fit=crop&w=1400&q=85`;
+
+      return `./assets/images/portfolio/portrait/${photos[i]}.jpg`;
     }
     function openLightbox(i) {
       current = i;
