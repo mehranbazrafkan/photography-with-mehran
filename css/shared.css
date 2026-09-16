@@ -321,7 +321,7 @@ a.nav-tool:hover { background: rgba(217, 119, 6, 0.1); }
 }
 
 .mobile-acc.is-active { color: #b45309; }
-.mobile-acc .chev { transition: transform 0.2s ease; }
+.mobile-acc .chev { transition: transform 0.2s ease; width: 14px; height: 14px; }
 .mobile-acc.open .chev { transform: rotate(180deg); }
 
 .mobile-acc__body { display: none; padding: 0.25rem 0 0.75rem; }

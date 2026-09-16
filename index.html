@@ -292,16 +292,27 @@
   <script src="js/shared.js"></script>
   <script>
     // --- Gallery data (Unsplash placeholders) ---
-    const photos = [
+    const portraits = [
       { cat: 'portrait', id: '1ce36849-b5a4-4559-982d-f962c8e8ea0f' },
       { cat: 'portrait', id: '7c8b5b66-7740-4499-81de-90f3b3f10183' },
       { cat: 'portrait', id: '80e1551d-083c-4a63-9961-b4668f4154ff' },
       { cat: 'portrait', id: 'ddd8c5f5-f71f-470f-82f2-0faf0a739c3c' },
-      { cat: 'street', id: '10925344-b891-4c61-b2db-01feb49afef8' },
-      { cat: 'landscape', id: '23c9d687-31de-487e-a311-6cbae0ac08a9' },
-      { cat: 'car', id: '23b37ea2-582a-4c35-a0c1-90891387be72' },
-      { cat: 'nature', id: '2b6bb8e3-1363-4db3-82c5-b8d075673af5' },
     ];
+
+    const pool = [];
+    PHOTO_CATEGORIES.forEach(cat => {
+      if (cat.id === 'portrait') return;
+      cat.images.forEach(img => {
+        const id = img.full.split('/').pop().replace('.jpg', '');
+        pool.push({ cat: cat.id, id });
+      });
+    });
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+
+    const photos = portraits.concat(pool.slice(0, 4));
 
     const gallery = document.getElementById('gallery');
     photos.forEach((photo, i) => {
