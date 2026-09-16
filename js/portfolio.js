@@ -1,16 +1,19 @@
 /* ============================================================
    Portfolio page: category overview cards, category galleries,
    and the full-image photo viewer (lightbox).
-   Expects window.PHOTO_CATEGORIES (js/portfolio-data.js) and
-   the shared navigation (js/shared.js) to be loaded first.
+   Expects window.PHOTO_CATEGORIES (js/portfolio-data.js, may be
+   refreshed dynamically by js/live-photos.js) and the shared
+   navigation (js/shared.js) to be loaded first.
    ============================================================ */
 
 (function () {
   'use strict';
 
-  var categories = window.PHOTO_CATEGORIES || [];
-
   var BASE = 'assets/images/';
+
+  function currentCategories() {
+    return window.PHOTO_CATEGORIES || [];
+  }
 
   function thumbPath(cat, suffix) {
     return BASE + 'thumbnails/' + cat + '/' + suffix;
@@ -54,6 +57,7 @@
     } catch (e) {
       return null;
     }
+    var categories = currentCategories();
     for (var i = 0; i < categories.length; i++) {
       if (categories[i].id === id) return categories[i];
     }
@@ -89,6 +93,9 @@
     var grid = document.getElementById('category-grid');
     if (!grid) return;
 
+    var categories = currentCategories();
+    grid.innerHTML = '';
+
     categories.forEach(function (cat, i) {
       var count = cat.images.length;
       var preview = categoryPreview(cat);
@@ -118,9 +125,8 @@
       grid.appendChild(card);
     });
 
-    if (categories.length === 0) {
-      document.getElementById('category-empty').classList.remove('hidden');
-    }
+    var empty = document.getElementById('category-empty');
+    if (empty) empty.classList.toggle('hidden', categories.length !== 0);
 
     // Fallback for any category card whose preview thumbnail is missing.
     grid.querySelectorAll('img').forEach(function (img) {
@@ -136,6 +142,8 @@
         }
       });
     });
+
+    setupReveal(grid);
   }
 
   function categoryPreview(cat) {
@@ -152,6 +160,8 @@
      CATEGORY VIEW — thumbnail grid + full-image viewer.
      ========================================================== */
 
+  var current = 0;
+
   function renderCategory(cat) {
     document.getElementById('landing-view').classList.add('hidden');
     document.getElementById('category-view').classList.remove('hidden');
@@ -166,17 +176,11 @@
     countEl.textContent = count + (count === 1 ? ' photo' : ' photos');
 
     var grid = document.getElementById('photo-grid');
-    var viewer = document.getElementById('photo-viewer');
-    var viewerImg = document.getElementById('pv-img');
-    var viewerCount = document.getElementById('pv-count');
-    var current = 0;
-
     grid.innerHTML = '';
 
-    if (count === 0) {
-      document.getElementById('category-empty-gallery').classList.remove('hidden');
-      return;
-    }
+    var empty = document.getElementById('category-empty-gallery');
+    if (empty) empty.classList.toggle('hidden', count !== 0);
+    if (count === 0) return;
 
     cat.images.forEach(function (image, i) {
       var name = imageName(image.full);
@@ -206,34 +210,53 @@
       grid.appendChild(tile);
     });
 
-    /* ----- full-image viewer ----- */
+    setupReveal(grid);
+  }
 
-    function openPhoto(i) {
-      if (!cat.images.length) return;
-      current = (i + cat.images.length) % cat.images.length;
-      displayCurrent();
-      viewer.classList.add('open');
-      document.body.classList.add('nav-locked');
-      viewerImg.focus && viewerImg.focus();
-    }
+  /* ----- full-image viewer ----- */
 
-    function displayCurrent() {
-      var image = cat.images[current];
-      viewerImg.src = fullPath(cat.id, imageName(image.full));
-      viewerImg.alt = cat.name + ' photo ' + (current + 1);
-      viewerCount.textContent = (current + 1) + ' / ' + cat.images.length;
-    }
+  var viewer = document.getElementById('photo-viewer');
+  var viewerImg = document.getElementById('pv-img');
+  var viewerCount = document.getElementById('pv-count');
+  var openCategory = null;
 
-    function closeViewer() {
-      viewer.classList.remove('open');
-      document.body.classList.remove('nav-locked');
-      viewerImg.removeAttribute('src');
-    }
+  function openPhoto(i) {
+    var cat = openCategory;
+    if (!cat || !cat.images.length) return;
+    current = (i + cat.images.length) % cat.images.length;
+    displayCurrent();
+    viewer.classList.add('open');
+    document.body.classList.add('nav-locked');
+    viewerImg.focus && viewerImg.focus();
+  }
 
-    function step(dir) {
-      current = (current + dir + cat.images.length) % cat.images.length;
-      displayCurrent();
-    }
+  function displayCurrent() {
+    var cat = openCategory;
+    if (!cat) return;
+    var image = cat.images[current];
+    viewerImg.src = fullPath(cat.id, imageName(image.full));
+    viewerImg.alt = cat.name + ' photo ' + (current + 1);
+    viewerCount.textContent = (current + 1) + ' / ' + cat.images.length;
+  }
+
+  function closeViewer() {
+    viewer.classList.remove('open');
+    document.body.classList.remove('nav-locked');
+    viewerImg.removeAttribute('src');
+  }
+
+  function step(dir) {
+    var cat = openCategory;
+    if (!cat) return;
+    current = (current + dir + cat.images.length) % cat.images.length;
+    displayCurrent();
+  }
+
+  // One-time binding; the viewers are re-rendered, never re-created.
+  var viewerBound = false;
+  function bindViewer() {
+    if (viewerBound) return;
+    viewerBound = true;
 
     document.getElementById('pv-close').addEventListener('click', closeViewer);
     document.getElementById('pv-prev').addEventListener('click', function (e) { e.stopPropagation(); step(-1); });
@@ -256,7 +279,7 @@
       viewer.querySelectorAll('.pv-fallback').forEach(function (el) { el.remove(); });
     });
 
-    document.addEventListener('keydown', function onKey(e) {
+    document.addEventListener('keydown', function (e) {
       if (!viewer.classList.contains('open')) return;
       if (e.key === 'Escape') closeViewer();
       else if (e.key === 'ArrowLeft') step(-1);
@@ -277,6 +300,7 @@
       touchStartX = null;
     }, { passive: true });
   }
+  bindViewer();
 
   /* ==========================================================
      SCROLL REVEAL (matches the rest of the site)
@@ -304,15 +328,32 @@
   if (year) year.textContent = new Date().getFullYear();
 
   /* ==========================================================
-     BOOT
+     RENDER (initial + when live photos arrive / change)
      ========================================================== */
 
-  var pageCategory = currentCategory();
-
-  if (pageCategory) {
-    renderCategory(pageCategory);
-  } else {
-    renderLanding();
-    setupReveal(document.getElementById('landing-view'));
+  function render() {
+    var pageCategory = currentCategory();
+    if (pageCategory) {
+      openCategory = window.PHOTO_CATEGORIES
+        ? (function () {
+            for (var i = 0; i < window.PHOTO_CATEGORIES.length; i++) {
+              if (window.PHOTO_CATEGORIES[i].id === pageCategory.id) {
+                return window.PHOTO_CATEGORIES[i];
+              }
+            }
+            return null;
+          })()
+        : null;
+      if (openCategory) renderCategory(openCategory);
+    } else {
+      document.getElementById('landing-view').classList.remove('hidden');
+      document.getElementById('category-view').classList.add('hidden');
+      renderLanding();
+    }
   }
+
+  render();
+
+  // New images discovered at runtime (js/live-photos.js) — re-render.
+  document.addEventListener('photocategories', render);
 })();

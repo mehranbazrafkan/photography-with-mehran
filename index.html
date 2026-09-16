@@ -221,7 +221,7 @@
           </div>
           <div>
             <p class="font-serif text-3xl font-bold text-amber-600">📍</p>
-            <p class="text-sm text-ink/60">On &amp; near campus</p>
+            <p class="text-sm text-ink/60">On &amp; near campus | Oldenburg</p>
           </div>
         </div>
       </div>
@@ -289,46 +289,60 @@
 
   <!-- ====================== SCRIPT ====================== -->
   <script src="js/portfolio-data.js"></script>
+  <script src="js/live-photos.js"></script>
   <script src="js/shared.js"></script>
   <script>
-    // --- Gallery data (Unsplash placeholders) ---
-    const portraits = [
-      { cat: 'portrait', id: '1ce36849-b5a4-4559-982d-f962c8e8ea0f' },
-      { cat: 'portrait', id: '7c8b5b66-7740-4499-81de-90f3b3f10183' },
-      { cat: 'portrait', id: '80e1551d-083c-4a63-9961-b4668f4154ff' },
-      { cat: 'portrait', id: 'ddd8c5f5-f71f-470f-82f2-0faf0a739c3c' },
-    ];
-
-    const pool = [];
-    PHOTO_CATEGORIES.forEach(cat => {
-      if (cat.id === 'portrait') return;
-      cat.images.forEach(img => {
-        const id = img.full.split('/').pop().replace('.jpg', '');
-        pool.push({ cat: cat.id, id });
-      });
-    });
-    for (let i = pool.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [pool[i], pool[j]] = [pool[j], pool[i]];
-    }
-
-    const photos = portraits.concat(pool.slice(0, 4));
+    // --- Gallery data ---
 
     const gallery = document.getElementById('gallery');
-    photos.forEach((photo, i) => {
-      const thumb = `./assets/images/thumbnails/${photo.cat}/${photo.id}.jpg`;
-      const full  = `./assets/images/portfolio/${photo.cat}/${photo.id}.jpg`;
-      const wrap = document.createElement('button');
-      wrap.className = 'group relative aspect-square overflow-hidden rounded-2xl shadow-md focus:outline-none focus:ring-2 focus:ring-amber-500';
-      wrap.innerHTML = `
-        <img src="${thumb}" data-full="${full}" alt="Portfolio photo ${i + 1}" loading="lazy"
-             class="h-full w-full object-cover transition duration-500 group-hover:scale-110" />
-        <span class="absolute inset-0 flex items-center justify-center bg-black/0 text-white opacity-0 transition group-hover:bg-black/30 group-hover:opacity-100">
-          <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14zM11 8v6M8 11h6"/></svg>
-        </span>`;
-      wrap.addEventListener('click', () => openLightbox(i));
-      gallery.appendChild(wrap);
-    });
+    let photos = [];
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function asItem(cat, img) {
+      return { cat: cat.id, id: img.full.split('/').pop().replace('.jpg', '') };
+    }
+
+    function buildPhotos() {
+      const cats = window.PHOTO_CATEGORIES || [];
+      const portrait = cats.find(c => c.id === 'portrait');
+      const portraits = portrait ? portrait.images.slice(0, 4).map(img => asItem(portrait, img)) : [];
+
+      const pool = [];
+      cats.forEach(cat => {
+        if (cat.id === 'portrait') return;
+        cat.images.forEach(img => pool.push(asItem(cat, img)));
+      });
+      shuffle(pool);
+
+      // Up to 8 in the grid: portraits first, then random fill.
+      return portraits.concat(pool.slice(0, 8 - portraits.length));
+    }
+
+    function renderGallery() {
+      photos = buildPhotos();
+      gallery.innerHTML = '';
+      photos.forEach((photo, i) => {
+        const thumb = `./assets/images/thumbnails/${photo.cat}/${photo.id}.jpg`;
+        const full  = `./assets/images/portfolio/${photo.cat}/${photo.id}.jpg`;
+        const wrap = document.createElement('button');
+        wrap.className = 'group relative aspect-square overflow-hidden rounded-2xl shadow-md focus:outline-none focus:ring-2 focus:ring-amber-500';
+        wrap.innerHTML = `
+          <img src="${thumb}" data-full="${full}" alt="Portfolio photo ${i + 1}" loading="lazy"
+               class="h-full w-full object-cover transition duration-500 group-hover:scale-110" />
+          <span class="absolute inset-0 flex items-center justify-center bg-black/0 text-white opacity-0 transition group-hover:bg-black/30 group-hover:opacity-100">
+            <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14zM11 8v6M8 11h6"/></svg>
+          </span>`;
+        wrap.addEventListener('click', () => openLightbox(i));
+        gallery.appendChild(wrap);
+      });
+    }
 
     // --- Lightbox ---
     const lightbox = document.getElementById('lightbox');
@@ -370,6 +384,9 @@
       if (e.key === 'ArrowLeft') step(-1);
       if (e.key === 'ArrowRight') step(1);
     });
+
+    renderGallery();
+    document.addEventListener('photocategories', renderGallery);
 
     // --- Scroll reveal ---
     const observer = new IntersectionObserver((entries) => {
