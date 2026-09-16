@@ -24,6 +24,9 @@
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet" />
 
+    <!-- Shared site styles (navigation, mobile menu) -->
+    <link rel="stylesheet" href="css/shared.css" />
+
     <script>
         tailwind.config = {
             theme: {
@@ -133,38 +136,11 @@
 </head>
 
 
-<body class="bg-cream text-ink antialiased">
+<body class="bg-cream text-ink antialiased" data-page="tools" data-cta-href="#calculator" data-cta-label="Start Calculating">
 
-    <!-- ====================================================== -->
-    <!-- NAVBAR -->
-    <!-- ====================================================== -->
+    <!-- Navigation is rendered by js/shared.js -->
 
-    <header class="fixed top-0 inset-x-0 z-40">
-
-        <nav
-            class="glass-light mx-auto mt-4 flex max-w-6xl items-center justify-between rounded-full px-6 py-3 shadow-lg shadow-black/5">
-
-            <a href="#" class="font-serif text-lg font-semibold tracking-tight">
-                Photo With Mehran<span class="text-amber-600">.</span>
-            </a>
-
-            <div class="hidden text-sm font-medium text-ink/60 md:block">
-                Lens Calculations
-            </div>
-
-            <a href="#calculator"
-                class="rounded-full bg-ink px-5 py-2 text-sm font-medium text-cream transition hover:bg-amber-600 hover:shadow-lg">
-                Start Calculating
-            </a>
-
-        </nav>
-
-    </header>
-
-
-    <!-- ====================================================== -->
     <!-- HERO -->
-    <!-- ====================================================== -->
 
     <section class="relative flex min-h-[75vh] items-center justify-center overflow-hidden bg-ink text-cream">
 
@@ -711,6 +687,9 @@
     <!-- ====================================================== -->
     <!-- JAVASCRIPT -->
     <!-- ====================================================== -->
+
+    <script src="js/portfolio-data.js"></script>
+    <script src="js/shared.js"></script>
 
     <script>
 

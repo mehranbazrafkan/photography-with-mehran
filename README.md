@@ -1,8 +1,8 @@
 # Photography with Mehran
 
-A single-page photography portfolio website for **Mehran Bazrafkan** - a student photographer offering affordable portrait, LinkedIn, and graduation photo sessions.
+A photography portfolio website for **Mehran Bazrafkan** - a student photographer offering affordable portrait, LinkedIn, and graduation photo sessions.
 
-The site showcases selected work, transparent pricing, an about section, and contact details in an elegant, fully responsive layout.
+The site includes a landing page with selected work, pricing, about, and contact sections, a portfolio gallery organised by photograph category, and a photography tools page featuring a background blur / depth calculator - all in an elegant, fully responsive layout.
 
 ## License
 

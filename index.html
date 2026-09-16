@@ -14,6 +14,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
+  <!-- Shared site styles (navigation, mobile menu) -->
+  <link rel="stylesheet" href="css/shared.css" />
+
   <script>
     tailwind.config = {
       theme: {
@@ -68,23 +71,9 @@
   </style>
 </head>
 
-<body class="bg-cream text-ink antialiased">
+<body class="bg-cream text-ink antialiased" data-page="home">
 
-  <!-- ====================== NAVBAR ====================== -->
-  <header class="fixed top-0 inset-x-0 z-40">
-    <nav class="glass-light mx-auto mt-4 flex max-w-6xl items-center justify-between rounded-full px-6 py-3 shadow-lg shadow-black/5">
-      <a href="#hero" class="font-serif text-lg font-semibold tracking-tight">Photo With Mehran<span class="text-amber-600">.</span></a>
-      <ul class="hidden gap-8 text-sm font-medium text-ink/70 md:flex">
-        <li><a href="#portfolio" class="transition hover:text-amber-600">Portfolio</a></li>
-        <li><a href="#pricing" class="transition hover:text-amber-600">Pricing</a></li>
-        <li><a href="#about" class="transition hover:text-amber-600">About</a></li>
-        <li><a href="#contact" class="transition hover:text-amber-600">Contact</a></li>
-      </ul>
-      <a href="#contact" class="rounded-full bg-ink px-5 py-2 text-sm font-medium text-cream transition hover:bg-amber-600 hover:shadow-lg">
-        Book a Session
-      </a>
-    </nav>
-  </header>
+  <!-- Navigation is rendered by js/shared.js -->
 
   <!-- ====================== HERO ====================== -->
   <section id="hero" class="relative flex min-h-screen items-center justify-center overflow-hidden">
@@ -117,7 +106,7 @@
            class="rounded-full bg-amber-500 px-8 py-3.5 text-sm font-semibold text-ink shadow-xl shadow-amber-500/20 transition hover:-translate-y-0.5 hover:bg-amber-400">
           Contact Me
         </a>
-        <a href="#portfolio"
+        <a href="portfolio.html"
            class="glass rounded-full px-8 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/20">
           View Portfolio
         </a>
@@ -162,10 +151,10 @@
         <!-- Starter -->
         <div class="reveal glass rounded-3xl p-8 shadow-xl shadow-black/30 transition hover:-translate-y-2">
           <h3 class="font-serif text-2xl font-semibold">Starter</h3>
-          <p class="mt-4 font-serif text-5xl font-bold">€20</p>
+          <p class="mt-4 font-serif text-5xl font-bold">€14.99</p>
           <ul class="mt-8 space-y-4 text-sm text-cream/80">
-            <li class="flex items-center gap-3"><span class="text-amber-400">✓</span> 20-minute session</li>
-            <li class="flex items-center gap-3"><span class="text-amber-400">✓</span> 10 edited photos</li>
+            <li class="flex items-center gap-3"><span class="text-amber-400">✓</span> 30-minute session</li>
+            <li class="flex items-center gap-3"><span class="text-amber-400">✓</span> 1 edited photos</li>
           </ul>
           <a href="#contact" class="mt-8 block rounded-full border border-cream/30 py-3 text-center text-sm font-medium transition hover:bg-cream hover:text-ink">
             Choose Starter
@@ -176,10 +165,10 @@
         <div class="reveal relative rounded-3xl bg-amber-500 p-8 text-ink shadow-2xl shadow-amber-500/30 transition hover:-translate-y-2 md:-mt-4 md:mb-4">
           <span class="absolute right-6 top-6 rounded-full bg-ink px-3 py-1 text-xs font-semibold text-cream">Popular</span>
           <h3 class="font-serif text-2xl font-semibold">Standard</h3>
-          <p class="mt-4 font-serif text-5xl font-bold">€35</p>
+          <p class="mt-4 font-serif text-5xl font-bold">€19.99</p>
           <ul class="mt-8 space-y-4 text-sm text-ink/80">
-            <li class="flex items-center gap-3"><span class="font-bold">✓</span> 45-minute session</li>
-            <li class="flex items-center gap-3"><span class="font-bold">✓</span> 20 edited photos</li>
+            <li class="flex items-center gap-3"><span class="font-bold">✓</span> 60-minute session</li>
+            <li class="flex items-center gap-3"><span class="font-bold">✓</span> 3 edited photos</li>
           </ul>
           <a href="#contact" class="mt-8 block rounded-full bg-ink py-3 text-center text-sm font-medium text-cream transition hover:bg-ink/80">
             Choose Standard
@@ -189,10 +178,10 @@
         <!-- Premium -->
         <div class="reveal glass rounded-3xl p-8 shadow-xl shadow-black/30 transition hover:-translate-y-2">
           <h3 class="font-serif text-2xl font-semibold">Premium</h3>
-          <p class="mt-4 font-serif text-5xl font-bold">€50</p>
+          <p class="mt-4 font-serif text-5xl font-bold">€29.99</p>
           <ul class="mt-8 space-y-4 text-sm text-cream/80">
-            <li class="flex items-center gap-3"><span class="text-amber-400">✓</span> 60-minute session</li>
-            <li class="flex items-center gap-3"><span class="text-amber-400">✓</span> 35 edited photos</li>
+            <li class="flex items-center gap-3"><span class="text-amber-400">✓</span> 90-minute session</li>
+            <li class="flex items-center gap-3"><span class="text-amber-400">✓</span> 6 edited photos</li>
           </ul>
           <a href="#contact" class="mt-8 block rounded-full border border-cream/30 py-3 text-center text-sm font-medium transition hover:bg-cream hover:text-ink">
             Choose Premium
@@ -299,35 +288,25 @@
   </div>
 
   <!-- ====================== SCRIPT ====================== -->
+  <script src="js/portfolio-data.js"></script>
+  <script src="js/shared.js"></script>
   <script>
     // --- Gallery data (Unsplash placeholders) ---
     const photos = [
-      //'1502685104226-ee32379fefbe', // portrait
-      //'1488161628813-04466f872be2', // man portrait
-      //'1524504388940-b1c1722653e1', // woman portrait
-      //'1506794778202-cad84cf45f1d', // man b/w
-      //'1517841905240-472988babdf9', // woman smiling
-      //'1531123897727-8f129e1688ce', // outdoor portrait
-      //'1463453091185-61582044d556', // man suit
-      //'1438761681033-6461ffad8d80', // woman headshot
-
-      '1ce36849-b5a4-4559-982d-f962c8e8ea0f',
-      //'4b364ef5-0226-4e74-83c3-d803a346be65',
-      '7c8b5b66-7740-4499-81de-90f3b3f10183',
-      //'9f76f1f5-b5db-4775-b889-4bc31d49d7eb',
-      //'31fa3337-40f8-4b57-8ac3-10af4c169d96',
-      '80e1551d-083c-4a63-9961-b4668f4154ff',
-      //'2705c442-e4fe-4da6-99b7-745aee3991ad',
-      'ddd8c5f5-f71f-470f-82f2-0faf0a739c3c',
+      { cat: 'portrait', id: '1ce36849-b5a4-4559-982d-f962c8e8ea0f' },
+      { cat: 'portrait', id: '7c8b5b66-7740-4499-81de-90f3b3f10183' },
+      { cat: 'portrait', id: '80e1551d-083c-4a63-9961-b4668f4154ff' },
+      { cat: 'portrait', id: 'ddd8c5f5-f71f-470f-82f2-0faf0a739c3c' },
+      { cat: 'street', id: '10925344-b891-4c61-b2db-01feb49afef8' },
+      { cat: 'landscape', id: '23c9d687-31de-487e-a311-6cbae0ac08a9' },
+      { cat: 'car', id: '23b37ea2-582a-4c35-a0c1-90891387be72' },
+      { cat: 'nature', id: '2b6bb8e3-1363-4db3-82c5-b8d075673af5' },
     ];
 
     const gallery = document.getElementById('gallery');
-    photos.forEach((id, i) => {
-      //const thumb = `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=600&q=70`;
-      //const full  = `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1400&q=85`;
-
-      const thumb = `./assets/images/thumbnails/portrait/${id}.jpg`;
-      const full  = `./assets/images/portfolio/portrait/${id}.jpg`;
+    photos.forEach((photo, i) => {
+      const thumb = `./assets/images/thumbnails/${photo.cat}/${photo.id}.jpg`;
+      const full  = `./assets/images/portfolio/${photo.cat}/${photo.id}.jpg`;
       const wrap = document.createElement('button');
       wrap.className = 'group relative aspect-square overflow-hidden rounded-2xl shadow-md focus:outline-none focus:ring-2 focus:ring-amber-500';
       wrap.innerHTML = `
@@ -346,9 +325,8 @@
     let current = 0;
 
     function fullSrc(i) {
-      //return `https://images.unsplash.com/photo-${photos[i]}?auto=format&fit=crop&w=1400&q=85`;
-
-      return `./assets/images/portfolio/portrait/${photos[i]}.jpg`;
+      const photo = photos[i];
+      return `./assets/images/portfolio/${photo.cat}/${photo.id}.jpg`;
     }
     function openLightbox(i) {
       current = i;
