@@ -310,19 +310,14 @@
     }
 
     function buildPhotos() {
-      const cats = window.PHOTO_CATEGORIES || [];
-      const portrait = cats.find(c => c.id === 'portrait');
-      const portraits = portrait ? portrait.images.slice(0, 4).map(img => asItem(portrait, img)) : [];
-
       const pool = [];
-      cats.forEach(cat => {
-        if (cat.id === 'portrait') return;
+      (window.PHOTO_CATEGORIES || []).forEach(cat => {
         cat.images.forEach(img => pool.push(asItem(cat, img)));
       });
       shuffle(pool);
 
-      // Up to 8 in the grid: portraits first, then random fill.
-      return portraits.concat(pool.slice(0, 8 - portraits.length));
+      // Up to 8 random images in the grid.
+      return pool.slice(0, 8);
     }
 
     function renderGallery() {
